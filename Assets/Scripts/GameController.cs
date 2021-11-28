@@ -16,6 +16,9 @@ public class GameController : MonoBehaviour
 
     [HideInInspector] public bool isPaused;
 
+    [SerializeField]
+    private GameObject pausedUI;
+
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +28,8 @@ public class GameController : MonoBehaviour
         batler = GetComponent<Batler>();
         clock = GetComponent<Clock>();
         counter = GetComponent<CounterControler>();
+
+        RestartGame();
     }
 
     // Update is called once per frame
@@ -45,9 +50,22 @@ public class GameController : MonoBehaviour
 
     public void Paused()
     {
-        isPaused = true;
-        clock.foodIsGrowing = false;
-        clock.waveTimerEnabled = false;
+        if (!isPaused)
+        {
+            isPaused = true;
+            clock.foodIsGrowing = false;
+            clock.waveTimerEnabled = false;
+            pausedUI.SetActive(true);
+        }
+        else
+        {
+            isPaused = false;
+            clock.foodIsGrowing = true;
+            clock.waveTimerEnabled = true;
+            pausedUI.SetActive(false);
+
+        }
+
     }
 
     public void Continue()
@@ -61,11 +79,11 @@ public class GameController : MonoBehaviour
 
     public void RestartGame()
     {
-        isPaused = true;
+        Paused();
         counter.ResetCounters();
         clock.resetTimer();
         batler.resetBatler();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Paused();
     }
 
 }

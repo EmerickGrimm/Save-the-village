@@ -8,6 +8,8 @@ public class ButtonsControlelr : MonoBehaviour
     [Header("Units Buttons")]
     public Button farmerButton;
     public Button knightButton;
+    public Button battleButton;
+
 
 
     private CounterControler counter;
@@ -27,37 +29,41 @@ public class ButtonsControlelr : MonoBehaviour
     {
         if (!game.isPaused)
         {
+            battleButton.interactable = true;
+
             if (counter.FoodAmount < counter.FarmerPrice)
             {
                 farmerButton.interactable = false;
             }
             else
             {
-                farmerButton.interactable = (true);
+                farmerButton.interactable = true;
             }
 
             if (counter.FoodAmount < counter.KnightsPrice)
             {
-                knightButton.interactable = (false);
+                knightButton.interactable = false;
             }
             else
             {
-                knightButton.interactable  = (true);
+                knightButton.interactable  = true;
             }
         }
         else
         {
             units.buttonsAreActive = false;
-            farmerButton.interactable = (false);
-            knightButton.interactable = (false);
+            farmerButton.interactable = false;
+            knightButton.interactable = false;
+            battleButton.interactable = false;
+
         }
     }
 
     public void EnableAll()
     {
         units.buttonsAreActive = true;
-        farmerButton.interactable = (true);
-        knightButton.interactable = (true);
+        farmerButton.interactable = true;
+        knightButton.interactable = true;
     }
 
     public void pause()
